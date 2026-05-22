@@ -1,38 +1,96 @@
-# todo-frontend
+# Todo App SRU
 
-This template should help get you started developing with Vue 3 in Vite.
+Aplikasi manajemen daftar tugas (To-Do List) full-stack yang dibangun dengan Laravel 13 (Backend API) dan Vue.js 3 (Frontend).
 
-## Recommended IDE Setup
+## Tech Stack
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Backend**: Laravel 13, MySQL
+- **Frontend**: Vue.js 3, Vite, Axios
 
-## Recommended Browser Setup
+## Fitur
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- Tambah, lihat, edit, dan hapus task
+- Toggle status selesai/belum dengan visual coret
+- Pencarian task berdasarkan judul
+- Filter: Semua, Aktif, Selesai
+- Toast notification untuk feedback
+- Progress bar persentase penyelesaian
+- Rate limiting API (60 request/menit)
+- Responsif untuk mobile
 
-## Customize configuration
+## Setup Backend
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### Requirements
+- PHP 8.3+
+- Composer
+- MySQL
 
-## Project Setup
+### Langkah
 
-```sh
-npm install
+1. Masuk ke folder backend:
+```bash
+   cd todo-backend
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
+2. Install dependencies:
+```bash
+   composer install
 ```
 
-### Compile and Minify for Production
-
-```sh
-npm run build
+3. Copy file environment:
+```bash
+   cp .env.example .env
 ```
+
+4. Generate app key:
+```bash
+   php artisan key:generate
+```
+
+5. Sesuaikan konfigurasi database di `.env`:
+
+6. Buat database `todo_app` di MySQL, lalu jalankan migrasi:
+```bash
+   php artisan migrate
+```
+
+7. Jalankan server:
+```bash
+   php artisan serve
+```
+
+API berjalan di `http://localhost:8000`
+
+## Setup Frontend
+
+### Requirements
+- Node.js 18+
+
+### Langkah
+
+1. Masuk ke folder frontend:
+```bash
+   cd todo-frontend
+```
+
+2. Install dependencies:
+```bash
+   npm install
+```
+
+3. Jalankan development server:
+```bash
+   npm run dev
+```
+
+Frontend berjalan di `http://localhost:5173`
+
+## API Endpoints
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| GET | /api/tasks | Ambil semua task (support ?search=) |
+| POST | /api/tasks | Buat task baru |
+| PATCH | /api/tasks/{id}/toggle | Toggle status selesai |
+| PUT | /api/tasks/{id} | Update task |
+| DELETE | /api/tasks/{id} | Hapus task |
